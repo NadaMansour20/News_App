@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">NewsApp</string>
 
-    <string name="category">فئه</string>
+    <string name="category">الفئه</string>
     <string name="settings">الاعدادات</string>
-    <string name="news_app">ابليكيشن الاخبار</string>
+    <string name="news_app">الاخبار</string>
     <string name="pick_your_category_of_interest">اختر الفئة التي تهمك</string>
     <string name="business">العمل</string>
     <string name="general">عام</string>

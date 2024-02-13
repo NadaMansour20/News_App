@@ -1,4 +1,4 @@
-package com.android.newsapp.Ui
+package com.android.newsapp.Ui.Category
 
 data class CategoryData(
     val id: String,

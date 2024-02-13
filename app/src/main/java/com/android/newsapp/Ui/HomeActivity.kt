@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.android.newsapp.R
+import com.android.newsapp.Ui.Category.CategoryData
+import com.android.newsapp.Ui.Category.CategoryFragment
+import com.android.newsapp.Ui.News.NewsFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -57,19 +60,26 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    fun open_fragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit()
-    }
-
     //call back()
     fun double_call_back() {
         categoryFragment.double_callback_object = object : CategoryFragment.double_card_callback {
-            override fun double_click(categoryTitle: TextView?) {
 
+            override fun double_click(category_list: CategoryData) {
 
+                open_fragment(NewsFragment.getInstance(category_list), true)
             }
 
         }
+    }
+
+    fun open_fragment(fragment: Fragment, addtobackstack: Boolean = false) {
+        val show_fragment = supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+        if (addtobackstack == true)
+        // علشان لما ارجع صفحه ل ورا يرجع للصفحه ال قبلي
+            show_fragment.addToBackStack(" ")
+
+        show_fragment.commit()
     }
 
 

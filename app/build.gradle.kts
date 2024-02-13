@@ -55,4 +55,12 @@ dependencies {
     //api
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // to fech image link from api
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // to show image corner in rounded
+    implementation("com.makeramen:roundedimageview:2.3.0")
+
+
 }

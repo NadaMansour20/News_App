@@ -1,4 +1,4 @@
-package com.android.newsapp.Ui
+package com.android.newsapp.Ui.Category
 
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +31,15 @@ class CategoryAdapter : Adapter<CategoryAdapter.CategoryViewHolder> {
         }
     }
 
+    val CATEGORY_LEFT_STYLE = 2
+    val CATEGORY_RIGH_STYLE = 1
+
+    // used when recycler view return more than different view
+    override fun getItemViewType(position: Int): Int {
+        if (position % 2 == 0) return CATEGORY_LEFT_STYLE
+        else return CATEGORY_RIGH_STYLE
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             if (viewType == CATEGORY_LEFT_STYLE)
@@ -40,15 +49,6 @@ class CategoryAdapter : Adapter<CategoryAdapter.CategoryViewHolder> {
         )
 
         return CategoryViewHolder(view)
-    }
-
-    val CATEGORY_LEFT_STYLE = 10
-    val CATEGORY_RIGH_STYLE = 20
-
-    // used when recycler view return more than different view
-    override fun getItemViewType(position: Int): Int {
-        if (position % 2 == 0) return CATEGORY_LEFT_STYLE
-        else return CATEGORY_RIGH_STYLE
     }
 
     override fun getItemCount(): Int {
@@ -67,9 +67,9 @@ class CategoryAdapter : Adapter<CategoryAdapter.CategoryViewHolder> {
         )
 
         if (click_category != null) {
-            holder.material_card?.setOnClickListener(object : View.OnClickListener {
+            holder.itemView.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
-                    click_category!!.card_onclick(holder.category_title)
+                    click_category!!.card_onclick(category_data_item)
                 }
 
             })
@@ -79,7 +79,7 @@ class CategoryAdapter : Adapter<CategoryAdapter.CategoryViewHolder> {
     var click_category: click_on_category_card? = null
 
     interface click_on_category_card {
-        fun card_onclick(categoryTitle: TextView?)
+        fun card_onclick(category_list: CategoryData)
     }
 
 

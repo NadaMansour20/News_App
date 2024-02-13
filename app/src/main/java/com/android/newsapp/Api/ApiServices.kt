@@ -9,7 +9,7 @@ interface ApiServices {
 
     // get headlines sources from api
     @GET("v2/top-headlines/sources")
-    fun get_resources(
+    fun get_tobheadline_resources(
 
         @Query("apiKey")
         apiKey: String,
@@ -19,14 +19,14 @@ interface ApiServices {
 
     // get all articles about source
     @GET("v2/everything")
-    fun get_all_news(
+    fun get_all_news_by_source(
 
         @Query("apiKey")
         apiKey: String,
         @Query("sources")
         sources: String
 
-    ):Call<NewsResponse>
+    ): Call<NewsResponse>
 
 
 }

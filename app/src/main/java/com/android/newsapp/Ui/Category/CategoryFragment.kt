@@ -1,10 +1,9 @@
-package com.android.newsapp.Ui
+package com.android.newsapp.Ui.Category
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.android.newsapp.R
@@ -47,8 +46,9 @@ class CategoryFragment : Fragment() {
     //call back --> card_click
     fun call_back() {
         categoryAdapter.click_category = object : CategoryAdapter.click_on_category_card {
-            override fun card_onclick(categoryTitle: TextView?) {
-                double_callback_object?.double_click(categoryTitle)
+            override fun card_onclick(category_list: CategoryData) {
+
+                double_callback_object?.double_click(category_list)
             }
 
         }
@@ -57,7 +57,7 @@ class CategoryFragment : Fragment() {
     var double_callback_object: double_card_callback? = null
 
     interface double_card_callback {
-        fun double_click(categoryTitle: TextView?)
+        fun double_click(category_list: CategoryData)
     }
 
 

@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
-    style="@style/CustomCardViewStyleRight"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:padding="30dp"
+    android:theme="@style/card_custom_corners_left"
     app:cardBackgroundColor="@color/green">
 
     <androidx.constraintlayout.widget.ConstraintLayout

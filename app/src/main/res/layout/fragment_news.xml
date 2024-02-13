@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:background="@drawable/tab_style"
+        android:layout_marginTop="10dp"
+        android:background="@color/background"
+        app:tabBackground="@drawable/tab_style"
         app:layout_constraintTop_toTopOf="parent"
         app:tabMode="scrollable"
+        app:tabIndicatorHeight="0dp"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/green" />
 
@@ -20,9 +23,10 @@
         android:id="@+id/recycler_view_news"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+        tools:listitem="@layout/news_item" />
 
     <ProgressBar
         android:id="@+id/progress"
