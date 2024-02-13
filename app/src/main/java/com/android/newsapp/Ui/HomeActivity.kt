@@ -21,7 +21,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        open_fragment(categoryFragment)
         init()
+        double_call_back()
 
     }
 
@@ -40,12 +43,15 @@ class HomeActivity : AppCompatActivity() {
         category.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 open_fragment(categoryFragment)
+                drawerLayout.close()
             }
 
         })
         setting.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 open_fragment(settingFragment)
+                drawerLayout.close()
+
             }
 
         })
@@ -54,4 +60,25 @@ class HomeActivity : AppCompatActivity() {
     fun open_fragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit()
     }
+
+    //call back()
+    fun double_call_back() {
+        categoryFragment.double_callback_object = object : CategoryFragment.double_card_callback {
+            override fun double_click(categoryTitle: TextView?) {
+
+
+            }
+
+        }
+    }
+
+
+    //to change language should restart fragment ,but should restart main_activity to restart fragment
+    fun restartFragment() {
+        val intent = intent
+        finish()
+        startActivity(intent)
+    }
+
+
 }

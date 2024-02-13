@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.android.newsapp.R
@@ -33,12 +34,30 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        call_back()
     }
 
 
     fun init() {
         recyclerView = requireView().findViewById(R.id.recycler_view)
         recyclerView.adapter = categoryAdapter
+    }
+
+
+    //call back --> card_click
+    fun call_back() {
+        categoryAdapter.click_category = object : CategoryAdapter.click_on_category_card {
+            override fun card_onclick(categoryTitle: TextView?) {
+                double_callback_object?.double_click(categoryTitle)
+            }
+
+        }
+    }
+
+    var double_callback_object: double_card_callback? = null
+
+    interface double_card_callback {
+        fun double_click(categoryTitle: TextView?)
     }
 
 

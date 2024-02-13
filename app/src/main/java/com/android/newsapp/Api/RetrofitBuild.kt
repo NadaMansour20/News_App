@@ -5,27 +5,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitBuild {
 
+    companion object {
 
+        private var retrofit: Retrofit? = null
 
-    companion object{
+        private fun built_retrofit(): Retrofit {
 
-        private var retrofit:Retrofit?=null
-
-        private fun built_retrofit():Retrofit{
-
-            if(retrofit==null) {
+            if (retrofit == null) {
                 retrofit = Retrofit.Builder().baseUrl("https://newsapi.org")
                     .addConverterFactory(GsonConverterFactory.create()).build()
             }
 
-                return retrofit!!
+            return retrofit!!
 
         }
 
-    }
+        fun get_api(): ApiServices {
+            return built_retrofit().create(ApiServices::class.java)
 
-    fun get_api():ApiServices{
-        return retrofit!!.create(ApiServices::class.java)
-
+        }
     }
 }
