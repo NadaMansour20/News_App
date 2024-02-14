@@ -1,10 +1,12 @@
 package com.android.newsapp.Ui.News
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.android.newsapp.Api.ArticlesItem
 import com.android.newsapp.R
@@ -49,6 +51,16 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
         holder.news_date.text = new_item?.publishedAt
         //load image from url
         Glide.with(holder.itemView).load(new_item?.urlToImage).into(holder.new_img)
+
+        //call back to open news on Browser
+        if (news_item_click != null) {
+            holder.itemView.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View?) {
+                    news_item_click?.news_click(new_item?.url?.toUri()!!)
+                }
+
+            })
+        }
     }
 
     fun changData(newsList: List<ArticlesItem?>?) {
@@ -56,5 +68,11 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
         notifyDataSetChanged()
 
 
+    }
+
+    var news_item_click: news_item_clicklistener? = null
+
+    interface news_item_clicklistener {
+        fun news_click(url: Uri)
     }
 }

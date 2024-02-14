@@ -1,5 +1,7 @@
 package com.android.newsapp.Ui.News
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +51,7 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         get_toHeadline_from_api()
+        get_news_from_Browser()
     }
 
     val news_adapter = NewsAdapter(null)
@@ -141,6 +144,19 @@ class NewsFragment : Fragment() {
                 }
 
             })
+
+    }
+
+    ////call back to open news on Browser
+    fun get_news_from_Browser() {
+        news_adapter.news_item_click = object : NewsAdapter.news_item_clicklistener {
+            override fun news_click(url: Uri) {
+                val intent = Intent(Intent.ACTION_VIEW, url)
+                startActivity(intent)
+            }
+
+        }
+
 
     }
 }
