@@ -8,7 +8,13 @@ data class ResourcesResponse(
 	val sources: List<SourcesItem?>? = null,
 
 	@field:SerializedName("status")
-	val status: String? = null
+	val status: String? = null,
+	@field:SerializedName("code")
+	val code: String? = null,
+	@field:SerializedName("massage")
+	val massage: String? = null
+
+
 )
 
 data class SourcesItem(

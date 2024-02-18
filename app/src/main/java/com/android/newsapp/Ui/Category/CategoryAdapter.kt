@@ -31,20 +31,18 @@ class CategoryAdapter : Adapter<CategoryAdapter.CategoryViewHolder> {
         }
     }
 
-    val CATEGORY_LEFT_STYLE = 2
-    val CATEGORY_RIGH_STYLE = 1
+    /*val CATEGORY_LEFT_STYLE = 20
+    val CATEGORY_RIGH_STYLE = 10
 
     // used when recycler view return more than different view
+
     override fun getItemViewType(position: Int): Int {
-        if (position % 2 == 0) return CATEGORY_LEFT_STYLE
+        if(position%2==0)return CATEGORY_LEFT_STYLE
         else return CATEGORY_RIGH_STYLE
     }
-
+*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            if (viewType == CATEGORY_LEFT_STYLE)
-                R.layout.category_item_left_style
-            else
                 R.layout.category_item_right_style, parent, false
         )
 
@@ -66,6 +64,7 @@ class CategoryAdapter : Adapter<CategoryAdapter.CategoryViewHolder> {
             )
         )
 
+        //click in category card_view
         if (click_category != null) {
             holder.itemView.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {

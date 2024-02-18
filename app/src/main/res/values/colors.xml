@@ -10,6 +10,8 @@
     <color name="red">#C81C22</color>
     <color name="blue_dark">#003E8F</color>
     <color name="background">#EEF4E6</color>
+    <color name="gray">#9FFFFFFF</color>
+    <color name="purple">#D86FEA</color>
 
 
 </resources>

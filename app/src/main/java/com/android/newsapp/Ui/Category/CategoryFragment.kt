@@ -18,6 +18,7 @@ class CategoryFragment : Fragment() {
         CategoryData("health", R.drawable.health, R.string.health, R.color.pink),
         CategoryData("science", R.drawable.science, R.string.science, R.color.yellow),
         CategoryData("sports", R.drawable.ball, R.string.sports, R.color.red),
+        CategoryData("entertainment", R.drawable.bussines, R.string.entertainment, R.color.purple)
     )
     lateinit var recyclerView: RecyclerView
     var categoryAdapter = CategoryAdapter(category_list)

@@ -10,20 +10,13 @@ data class NewsResponse(
     @field:SerializedName("articles")
     val articles: List<ArticlesItem>? = null,
 
-    @field:SerializedName("status")
-    val status: String? = null,
+    @field:SerializedName("code")
+    val code: String? = null,
+    @field:SerializedName("massage")
+    val massage: String? = null
 
-
-    )
-
-data class Source(
-
-    @field:SerializedName("name")
-    val name: String? = null,
-
-    @field:SerializedName("id")
-    val id: String? = null
 )
+
 
 data class ArticlesItem(
 
@@ -40,7 +33,7 @@ data class ArticlesItem(
     val description: String? = null,
 
     @field:SerializedName("source")
-    val source: Source? = null,
+    val source: SourcesItem? = null,
 
     @field:SerializedName("title")
     val title: String? = null,

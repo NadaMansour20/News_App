@@ -19,13 +19,24 @@
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/green" />
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/search_border"
+        app:defaultQueryHint="enter your keywords"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_news"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
         tools:listitem="@layout/news_item" />
 
     <ProgressBar
