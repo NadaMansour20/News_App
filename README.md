@@ -5,12 +5,13 @@ Displays general news for all categories.
 Display news for specific category user can select from.
 Enable User to open article URL on the browser.
 The user can search about news over all the world
-<h1>Screen Shots</h1>
-
+<h1>Screen_Shots</h1>
 -Category
+
 ![WhatsApp Image 2024-02-19 (4)](https://github.com/NadaMansour20/News_App/assets/125664031/984e8dc0-12a3-4690-aece-45e5dc644d07)
 
 -Side menu
+
 ![WhatsApp Image 2024-02-19 (5)](https://github.com/NadaMansour20/News_App/assets/125664031/2433206c-0ecb-4ff9-a4b5-4e21d56f61a2)
 
 -News!!
@@ -30,6 +31,7 @@ The user can search about news over all the world
 ![WhatsApp Image 2024-02-19 (10)](https://github.com/NadaMansour20/News_App/assets/125664031/12bd0ac8-c59c-4c5e-8878-0d69501a1aea)
 
 -Settings
+
 ![WhatsApp Image 2024-02-19 (3)](https://github.com/NadaMansour20/News_App/assets/125664031/0efff59e-f963-41f8-b866-5627938f2508)
 
 ![WhatsApp Image 2024-02-19 (11)](https://github.com/NadaMansour20/News_App/assets/125664031/3069bea4-32d1-4c59-8944-a2bdb4adc813)
