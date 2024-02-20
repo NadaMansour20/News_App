@@ -28,13 +28,21 @@ The user can search about news over all the world
 
 -Search
 
-![WhatsApp Image 2024-02-19 (10)](https://github.com/NadaMansour20/News_App/assets/125664031/12bd0ac8-c59c-4c5e-8878-0d69501a1aea)
+![Screenshot 2024-02-20 231504](https://github.com/NadaMansour20/News_App/assets/125664031/0c5385d1-ba11-47a7-99d3-d53608e35ef5)
+
 
 -Settings
 
 ![WhatsApp Image 2024-02-19 (3)](https://github.com/NadaMansour20/News_App/assets/125664031/0efff59e-f963-41f8-b866-5627938f2508)
 
 ![WhatsApp Image 2024-02-19 (11)](https://github.com/NadaMansour20/News_App/assets/125664031/3069bea4-32d1-4c59-8944-a2bdb4adc813)
+
+-News in  the Browser
+
+![Screenshot 2024-02-20 225455](https://github.com/NadaMansour20/News_App/assets/125664031/bf511948-167e-45cf-9a85-aa07ba713b18)
+
+
+
 
 
 
