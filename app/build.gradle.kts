@@ -62,5 +62,9 @@ dependencies {
     // to show image corner in rounded
     implementation("com.makeramen:roundedimageview:2.3.0")
 
+    //view_model && live_data
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+
 
 }

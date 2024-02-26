@@ -1,4 +1,4 @@
-package com.android.newsapp.Ui
+package com.android.newsapp.Ui.Home
 
 import android.os.Bundle
 import android.view.View
@@ -12,6 +12,7 @@ import com.android.newsapp.R
 import com.android.newsapp.Ui.Category.CategoryData
 import com.android.newsapp.Ui.Category.CategoryFragment
 import com.android.newsapp.Ui.News.NewsFragment
+import com.android.newsapp.Ui.Settings.SettingFragment
 
 class HomeActivity : AppCompatActivity() {
 

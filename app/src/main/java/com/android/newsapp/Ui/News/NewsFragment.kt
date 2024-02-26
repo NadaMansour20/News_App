@@ -10,17 +10,13 @@ import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.android.newsapp.Api.NewsResponse
-import com.android.newsapp.Api.ResourcesResponse
-import com.android.newsapp.Api.RetrofitBuild
 import com.android.newsapp.Api.SourcesItem
 import com.android.newsapp.R
 import com.android.newsapp.Ui.Category.CategoryData
 import com.google.android.material.tabs.TabLayout
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class NewsFragment : Fragment() {
 
@@ -30,6 +26,9 @@ class NewsFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var category: CategoryData
     lateinit var search: SearchView
+    var viewModel = NewsViewModel()
+
+    val news_adapter = NewsAdapter(null)
 
     // to get news by specific category
     companion object {
@@ -50,15 +49,37 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         init()
-        get_toHeadline_from_api()
+        //initial view_model
+        viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+        add_data_view_model()
+
+        viewModel.get_toHeadline_from_api(category)
         get_news_from_Browser()
 
 
     }
 
-    val news_adapter = NewsAdapter(null)
+    fun add_data_view_model() {                    // or this
+        viewModel.liveData_progress.observe(viewLifecycleOwner, Observer {
+            progressbar.isVisible = it    //  receive true or false
+        })
 
+        viewModel.liveData_get_toheadline.observe(viewLifecycleOwner, Observer {
+            set_response_to_tab(it)
+        })
+
+        viewModel.liveData_get_search_news.observe(viewLifecycleOwner, Observer {
+            news_adapter.changData(it)
+        })
+
+        viewModel.liveData_get_source_news.observe(viewLifecycleOwner, Observer {
+            news_adapter.changData(it)
+        })
+
+    }
     fun init() {
         tab_layout = requireView().findViewById(R.id.tab_layout)
         progressbar = requireView().findViewById(R.id.progress)
@@ -70,7 +91,7 @@ class NewsFragment : Fragment() {
         // the action that taken when click on search_view
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                get_news_by_search(query!!)
+                viewModel.get_news_by_search(query!!)
                 return true
 
 
@@ -86,52 +107,6 @@ class NewsFragment : Fragment() {
 
     }
 
-    fun get_news_by_search(query: String) {
-        progressbar.isVisible = true
-
-        RetrofitBuild.get_api().get_all_news_by_search(query)
-            .enqueue(object : Callback<NewsResponse> {
-                override fun onResponse(
-                    call: Call<NewsResponse>,
-                    response: Response<NewsResponse>
-                ) {
-                    progressbar.isVisible = false
-                    news_adapter.changData(response.body()?.articles)
-
-                }
-
-                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                    progressbar.isVisible = false
-
-                }
-
-            })
-    }
-
-    fun get_toHeadline_from_api() {
-
-        progressbar.isVisible = true
-
-        RetrofitBuild.get_api().get_tobheadline_resources(category.id)
-            .enqueue(object : Callback<ResourcesResponse> {
-
-                override fun onResponse(
-                    call: Call<ResourcesResponse>,
-                    response: Response<ResourcesResponse>
-                ) {
-
-                    progressbar.isVisible = false
-
-                    set_response_to_tab(response.body()?.sources)
-                }
-
-                override fun onFailure(call: Call<ResourcesResponse>, t: Throwable) {
-                    progressbar.isVisible = false
-
-                }
-
-            })
-    }
 
     fun set_response_to_tab(response: List<SourcesItem?>?) {
 
@@ -146,7 +121,7 @@ class NewsFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 //var source=tab?.position
                 val source = tab?.tag as SourcesItem
-                getNewBySource(source)
+                viewModel.getNewBySource(source)
 
             }
 
@@ -154,7 +129,7 @@ class NewsFragment : Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 //var source=tab?.position
                 val source = tab?.tag as SourcesItem
-                getNewBySource(source)
+                viewModel.getNewBySource(source)
 
             }
 
@@ -169,26 +144,7 @@ class NewsFragment : Fragment() {
 
     }
 
-    private fun getNewBySource(source: SourcesItem) {
-        progressbar.isVisible = true
 
-        RetrofitBuild.get_api().get_all_news_by_source(source.id!!)
-            .enqueue(object : Callback<NewsResponse> {
-                override fun onResponse(
-                    call: Call<NewsResponse>,
-                    response: Response<NewsResponse>
-                ) {
-                    progressbar.isVisible = false
-                    news_adapter.changData(response.body()?.articles)
-                }
-
-                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                    progressbar.isVisible = false
-                }
-
-            })
-
-    }
 
     ////call back to open news on Browser
     fun get_news_from_Browser() {
