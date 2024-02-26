@@ -12,7 +12,7 @@ class RetrofitBuild {
         private fun built_retrofit(): Retrofit {
 
             if (retrofit == null) {
-                retrofit = Retrofit.Builder().baseUrl("https://newsapi.org")
+                retrofit = Retrofit.Builder().baseUrl(Constent.base_url)
                     .addConverterFactory(GsonConverterFactory.create()).build()
             }
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -20,6 +19,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     lateinit var category: TextView
     lateinit var setting: TextView
+    lateinit var category_intent: TextView
     var categoryFragment = CategoryFragment()
     var settingFragment = SettingFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +30,7 @@ class HomeActivity : AppCompatActivity() {
         init()
         double_call_back()
 
+
     }
 
     fun init() {
@@ -37,6 +38,8 @@ class HomeActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         category = findViewById(R.id.category)
         setting = findViewById(R.id.setting)
+        category_intent = findViewById(R.id.category_intent)
+
 
         menu.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -68,6 +71,10 @@ class HomeActivity : AppCompatActivity() {
             override fun double_click(category_list: CategoryData) {
 
                 open_fragment(NewsFragment.getInstance(category_list), true)
+
+                // to transfer category name in home page
+                category_intent.text = getText(category_list.title_id)
+
             }
 
         }
