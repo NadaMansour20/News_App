@@ -6,26 +6,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.android.newsapp.Api.SourcesItem
 import com.android.newsapp.R
 import com.android.newsapp.Ui.Category.CategoryData
+import com.android.newsapp.databinding.FragmentNewsBinding
 import com.google.android.material.tabs.TabLayout
 
 class NewsFragment : Fragment() {
 
 
-    lateinit var tab_layout: TabLayout
-    lateinit var progressbar: ProgressBar
-    lateinit var recyclerView: RecyclerView
     lateinit var category: CategoryData
     lateinit var search: SearchView
+    lateinit var NewsViewDataBinding: FragmentNewsBinding
+
     var viewModel = NewsViewModel()
 
     val news_adapter = NewsAdapter(null)
@@ -43,8 +42,13 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_news, container, false)
+    ): View {
+        //return inflater.inflate(R.layout.fragment_news, container, false)
+
+        //use DataBinding
+        NewsViewDataBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false)
+        return NewsViewDataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,7 +68,7 @@ class NewsFragment : Fragment() {
 
     fun add_data_view_model() {                    // or this
         viewModel.liveData_progress.observe(viewLifecycleOwner, Observer {
-            progressbar.isVisible = it    //  receive true or false
+            NewsViewDataBinding.progress.isVisible = it    //  receive true or false
         })
 
         viewModel.liveData_get_toheadline.observe(viewLifecycleOwner, Observer {
@@ -81,11 +85,8 @@ class NewsFragment : Fragment() {
 
     }
     fun init() {
-        tab_layout = requireView().findViewById(R.id.tab_layout)
-        progressbar = requireView().findViewById(R.id.progress)
-        search = requireView().findViewById(R.id.search_bar)
-        recyclerView = requireView().findViewById(R.id.recycler_view_news)
-        recyclerView.adapter = news_adapter
+
+        NewsViewDataBinding.recyclerViewNews.adapter = news_adapter
 
 
         // the action that taken when click on search_view
@@ -111,13 +112,14 @@ class NewsFragment : Fragment() {
     fun set_response_to_tab(response: List<SourcesItem?>?) {
 
         response?.forEach {
-            val tab = tab_layout.newTab()
+            val tab = NewsViewDataBinding.tabLayout.newTab()
             tab.text = it?.name
             tab.tag = it
-            tab_layout.addTab(tab)
+            NewsViewDataBinding.tabLayout.addTab(tab)
         }
 
-        tab_layout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        NewsViewDataBinding.tabLayout.setOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 //var source=tab?.position
                 val source = tab?.tag as SourcesItem
@@ -139,7 +141,7 @@ class NewsFragment : Fragment() {
         })
 
         // default select first tab
-        tab_layout.getTabAt(0)?.select()
+        NewsViewDataBinding.tabLayout.getTabAt(0)?.select()
 
 
     }
