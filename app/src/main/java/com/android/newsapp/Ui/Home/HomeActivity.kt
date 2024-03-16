@@ -1,12 +1,16 @@
 package com.android.newsapp.Ui.Home
 
+import android.content.Context
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.android.newsapp.InternetConnectivity
 import com.android.newsapp.R
 import com.android.newsapp.Ui.Category.CategoryData
 import com.android.newsapp.Ui.Category.CategoryFragment
@@ -22,13 +26,20 @@ class HomeActivity : AppCompatActivity() {
     lateinit var category_intent: TextView
     var categoryFragment = CategoryFragment()
     var settingFragment = SettingFragment()
+    var open_internet = InternetConnectivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+
+
         open_fragment(categoryFragment)
         init()
         double_call_back()
+
+        if (!isNetworkConnected()) {
+            open_internet.show(supportFragmentManager, " ")  //show button sheet
+        }
 
 
     }
@@ -69,11 +80,15 @@ class HomeActivity : AppCompatActivity() {
         categoryFragment.double_callback_object = object : CategoryFragment.double_card_callback {
 
             override fun double_click(category_list: CategoryData) {
+                if (isNetworkConnected()) {
+                    open_fragment(NewsFragment.getInstance(category_list), true)
+                    // to transfer category name in home page
+                    category_intent.text = getText(category_list.title_id)
+                } else {
+                    open_internet.show(supportFragmentManager, " ")  //show button sheet
 
-                open_fragment(NewsFragment.getInstance(category_list), true)
+                }
 
-                // to transfer category name in home page
-                category_intent.text = getText(category_list.title_id)
 
             }
 
@@ -88,6 +103,18 @@ class HomeActivity : AppCompatActivity() {
             show_fragment.addToBackStack(" ")
 
         show_fragment.commit()
+    }
+
+
+    fun isNetworkConnected(): Boolean {
+        val wifi_manager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifi_is_enabled = wifi_manager.isWifiEnabled
+
+        if (!wifi_is_enabled) {
+            Toast.makeText(applicationContext, "NO Internet Connection", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
 

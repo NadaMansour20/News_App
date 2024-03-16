@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-
-    <!--  create object from ArticlesItem-->
-    <data>
-
-        <variable
-            name="news"
-            type="com.android.newsapp.Api.ArticlesItem" />
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
         <ProgressBar
             android:id="@+id/news_img_progressbar"
@@ -29,7 +17,7 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/news_img"
-            imageUrl="@{news.urlToImage}"
+            android:src="@drawable/hoodi16"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:scaleType="centerCrop"
@@ -45,7 +33,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/news_img"
-            tools:text="@{news.author}" />
+            tools:text="kkkkk" />
 
         <TextView
             android:id="@+id/news_details"
@@ -57,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/news_name"
-            tools:text="@{news.description}" />
+            tools:text="lllllll" />
 
         <TextView
             android:id="@+id/news_date"
@@ -68,6 +56,5 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/news_details"
-            tools:text="@{news.publishedAt}" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+            tools:text=",kllll" />
+</androidx.constraintlayout.widget.ConstraintLayout>

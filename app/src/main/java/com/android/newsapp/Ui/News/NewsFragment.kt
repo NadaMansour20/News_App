@@ -6,28 +6,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.android.newsapp.Api.SourcesItem
 import com.android.newsapp.R
 import com.android.newsapp.Ui.Category.CategoryData
-import com.android.newsapp.databinding.FragmentNewsBinding
 import com.google.android.material.tabs.TabLayout
+
 
 class NewsFragment : Fragment() {
 
 
     lateinit var category: CategoryData
     lateinit var search: SearchView
-    lateinit var NewsViewDataBinding: FragmentNewsBinding
+    lateinit var tab_layout: TabLayout
+    lateinit var progressbar: ProgressBar
+    lateinit var recyclerView: RecyclerView
 
     var viewModel = NewsViewModel()
 
     val news_adapter = NewsAdapter(null)
+
 
     // to get news by specific category
     companion object {
@@ -44,15 +48,13 @@ class NewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         //return inflater.inflate(R.layout.fragment_news, container, false)
-
-        //use DataBinding
-        NewsViewDataBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false)
-        return NewsViewDataBinding.root
+        return inflater.inflate(R.layout.fragment_news, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
 
         init()
@@ -63,12 +65,11 @@ class NewsFragment : Fragment() {
         viewModel.get_toHeadline_from_api(category)
         get_news_from_Browser()
 
-
     }
 
     fun add_data_view_model() {                    // or this
         viewModel.liveData_progress.observe(viewLifecycleOwner, Observer {
-            NewsViewDataBinding.progress.isVisible = it    //  receive true or false
+            progressbar.isVisible = it    //  receive true or false
         })
 
         viewModel.liveData_get_toheadline.observe(viewLifecycleOwner, Observer {
@@ -85,8 +86,11 @@ class NewsFragment : Fragment() {
 
     }
     fun init() {
-
-        NewsViewDataBinding.recyclerViewNews.adapter = news_adapter
+        tab_layout = requireView().findViewById(R.id.tab_layout)
+        progressbar = requireView().findViewById(R.id.progress)
+        search = requireView().findViewById(R.id.search_bar)
+        recyclerView = requireView().findViewById(R.id.recycler_view_news)
+        recyclerView.adapter = news_adapter
 
 
         // the action that taken when click on search_view
@@ -112,13 +116,13 @@ class NewsFragment : Fragment() {
     fun set_response_to_tab(response: List<SourcesItem?>?) {
 
         response?.forEach {
-            val tab = NewsViewDataBinding.tabLayout.newTab()
+            val tab = tab_layout.newTab()
             tab.text = it?.name
             tab.tag = it
-            NewsViewDataBinding.tabLayout.addTab(tab)
+            tab_layout.addTab(tab)
         }
 
-        NewsViewDataBinding.tabLayout.setOnTabSelectedListener(object :
+        tab_layout.setOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 //var source=tab?.position
@@ -141,7 +145,7 @@ class NewsFragment : Fragment() {
         })
 
         // default select first tab
-        NewsViewDataBinding.tabLayout.getTabAt(0)?.select()
+        tab_layout.getTabAt(0)?.select()
 
 
     }
@@ -152,6 +156,7 @@ class NewsFragment : Fragment() {
     fun get_news_from_Browser() {
         news_adapter.news_item_click = object : NewsAdapter.news_item_clicklistener {
             override fun news_click(url: Uri) {
+                //implicit intent
                 val intent = Intent(Intent.ACTION_VIEW, url)
                 startActivity(intent)
             }
@@ -160,4 +165,5 @@ class NewsFragment : Fragment() {
 
 
     }
+
 }
