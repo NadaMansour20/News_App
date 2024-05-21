@@ -127,6 +127,7 @@ class NewsFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 //var source=tab?.position
                 val source = tab?.tag as SourcesItem
+
                 viewModel.getNewBySource(source)
 
             }
