@@ -7,9 +7,9 @@ Enable User to open article URL on the browser.
 The user can search about news over all the world
 
 <h1>Technologies used</h1>
--View Model<\br>
--Api<\br>
--Kotlin Coroutines<\br>
+-View Model</br>
+-Api</br>
+-Kotlin Coroutines</br>
 
 <h1>Screen_Shots</h1>
 -Category
