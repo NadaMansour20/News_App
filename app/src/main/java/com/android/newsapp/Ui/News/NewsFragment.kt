@@ -64,6 +64,7 @@ class NewsFragment : Fragment() {
 
         viewModel.get_toHeadline_from_api(category)
         get_news_from_Browser()
+        share_news()
 
     }
 
@@ -165,6 +166,19 @@ class NewsFragment : Fragment() {
         }
 
 
+    }
+    fun share_news() {
+        news_adapter.share_click = object : NewsAdapter.share_clicklistener{
+            override fun share(title: String, url: Uri) {
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_SUBJECT, "Check out this news!") // Subject for the share
+                    putExtra(Intent.EXTRA_TEXT, "$title\n\nRead more: $url") // The content to share
+                }
+                requireContext().startActivity(Intent.createChooser(shareIntent, "Share via"))
+            }
+
+        }
     }
 
 }

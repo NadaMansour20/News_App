@@ -1,9 +1,11 @@
 package com.android.newsapp.Ui.News
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -24,12 +26,15 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
         val news_name: TextView
         val news_description: TextView
         val news_date: TextView
+        val share: ImageButton
+
 
         constructor(itemView: View) : super(itemView) {
             new_img = itemView.findViewById(R.id.news_img)
             news_name = itemView.findViewById(R.id.news_name)
             news_description = itemView.findViewById(R.id.news_details)
             news_date = itemView.findViewById(R.id.news_date)
+            share=itemView.findViewById(R.id.share)
 
         }
     }
@@ -63,6 +68,15 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
             })
         }
+        if (share_click != null) {
+            holder.share.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View?) {
+                    share_click?.share(new_item?.title!!, new_item.url?.toUri()!!)
+                    Log.e("TTTTTTTTTTTTTTTTTTTTTTTTT","TTTTTTTTTTTTTTTTTTTT")
+                }
+
+            })
+        }
     }
 
 
@@ -74,8 +88,12 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
     }
 
     var news_item_click: news_item_clicklistener? = null
+    var share_click: share_clicklistener? = null
 
     interface news_item_clicklistener {
         fun news_click(url: Uri)
+    }
+    interface share_clicklistener{
+        fun share(title:String,url: Uri)
     }
 }
